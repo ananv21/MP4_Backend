@@ -122,7 +122,12 @@ def insert_data_into_db(payload):
         with get_db_connection() as connection:
             with connection.cursor() as cursor:
                 insert_sql = "INSERT INTO events (title, description, image_url, date, location) VALUES (%s, %s, %s, %s, %s)"
-                values = (payload['title'],payload['description'],payload['image_url'],payload['date'],payload['location'])
+                values = (payload['title'],
+                          payload.get('description',''),
+                          payload.get('image_url',''),
+                          payload.get('date',''),
+                          payload.get('location','')
+                          )
                 cursor.execute(insert_sql, values)
             connection.commit()
             logging.info("Values inserted into table")
