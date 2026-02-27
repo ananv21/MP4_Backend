@@ -40,7 +40,7 @@ def create_event():
         return jsonify({
             "error": "During event creation",
             "detail": str(e)
-        }), 525
+        }), 501
 
 #Endpoint: Data Retrieval
 @application.route('/data', methods=['GET'])
@@ -60,7 +60,7 @@ def get_data():
         return jsonify({
             "error": "During data retrieval",
             "detail": str(e)
-        }), 525
+        }), 501
 
 def get_db_connection():
     """
