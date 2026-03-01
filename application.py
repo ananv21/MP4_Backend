@@ -25,6 +25,7 @@ def create_event():
     The database communication is currently stubbed out.
     You must implement insert_data_into_db() function to integrate with your MySQL RDS Instance.
     """
+    create_db_table()
     try:
         payload = request.get_json()
         required_fields = ["title", "date"]
@@ -50,6 +51,7 @@ def get_data():
     The database communication is currently stubbed out.
     You must implement the fetch_data_from_db() function to integrate with your MySQL RDS Instance.
     """
+    create_db_table()
     try:
         data = fetch_data_from_db()
         return jsonify({"data": data}), 200
