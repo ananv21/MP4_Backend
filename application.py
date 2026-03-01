@@ -122,13 +122,23 @@ def insert_data_into_db(payload):
         with get_db_connection() as connection:
             with connection.cursor() as cursor:
                 insert_sql = "INSERT INTO events (title, description, image_url, date, location) VALUES (%s, %s, %s, %s, %s)"
-                values = (payload['title'],
-                          payload.get('description',''),
-                          payload.get('image_url',''),
-                          payload['date'],
-                          payload.get('location','')
-                          )
-                cursor.execute(insert_sql, values)
+                if type(payload)==list:
+                    for item in payload:
+                        values = (item['title'],
+                            item.get('description',''),
+                            item.get('image_url',''),
+                            item['date'],
+                            item.get('location','')
+                            )
+                        cursor.execute(insert_sql, values)
+                else:
+                    values = (payload['title'],
+                            payload.get('description',''),
+                            payload.get('image_url',''),
+                            payload['date'],
+                            payload.get('location','')
+                            )
+                    cursor.execute(insert_sql, values)
             connection.commit()
             logging.info("Values inserted into table")
     except Exception as e:
