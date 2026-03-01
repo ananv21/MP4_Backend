@@ -29,8 +29,8 @@ def create_event():
     try:
         payload = request.get_json()
         required_fields = ["title", "date"]
-        if not payload or not all(field in payload for field in required_fields):
-            return jsonify({"error": "Missing required fields: 'title' and 'date'"}), 400
+        if not payload: #or not all(field in payload for field in required_fields):
+            return jsonify({"error": "Missing required fields"}), 400
 
         insert_data_into_db(payload)
         return jsonify({"message": "Event created successfully"}), 201
@@ -123,10 +123,10 @@ def insert_data_into_db(payload):
         with get_db_connection() as connection:
             with connection.cursor() as cursor:
                 insert_sql = "INSERT INTO events (title, description, image_url, date, location) VALUES (%s, %s, %s, %s, %s)"
-                values = (payload['title'],
+                values = (payload.get('title',''),
                           payload.get('description',''),
                           payload.get('image_url',''),
-                          payload['date'],
+                          payload.get('date',''),
                           payload.get('location','')
                           )
                 cursor.execute(insert_sql, values)
