@@ -125,18 +125,18 @@ def insert_data_into_db(payload):
                 if type(payload)==list:
                     for item in payload:
                         values = (item['title'],
-                            item.get('description',''),
-                            item.get('image_url',''),
+                            item['description'],
+                            item['image_url'],
                             item['date'],
-                            item.get('location','')
+                            item['location']
                             )
                         cursor.execute(insert_sql, values)
                 else:
                     values = (payload['title'],
-                            payload.get('description',''),
-                            payload.get('image_url',''),
+                            payload['description'],
+                            payload['image_url'],
                             payload['date'],
-                            payload.get('location','')
+                            payload['location']
                             )
                     cursor.execute(insert_sql, values)
             connection.commit()
