@@ -125,7 +125,7 @@ def insert_data_into_db(payload):
                 values = (payload['title'],
                           payload.get('description',''),
                           payload.get('image_url',''),
-                          payload.get('date',''),
+                          payload['date'],
                           payload.get('location','')
                           )
                 cursor.execute(insert_sql, values)
