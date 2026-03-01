@@ -51,7 +51,6 @@ def get_data():
     The database communication is currently stubbed out.
     You must implement the fetch_data_from_db() function to integrate with your MySQL RDS Instance.
     """
-    create_db_table()
     try:
         data = fetch_data_from_db()
         return jsonify({"data": data}), 200
@@ -148,7 +147,7 @@ def fetch_data_from_db():
     try:
         with get_db_connection() as connection:
             with connection.cursor() as cursor:
-                fetch_sql = "SELECT id, title, description, image_url, date, location FROM eventsnew ORDER BY date ASC"
+                fetch_sql = "SELECT id, title, description, image_url, date, location FROM events ORDER BY date ASC"
                 cursor.execute(fetch_sql)
                 fetched_data = cursor.fetchall()
                 logging.info("Values fetched from table")
