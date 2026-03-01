@@ -52,7 +52,9 @@ def get_data():
     """
     try:
         data = fetch_data_from_db()
-        return jsonify({"data": data}), 200
+        keys = ['index','title','description','image_url','date','location']
+        data_prs = [dict(zip(keys, l)) for l in data]
+        return jsonify({"data": data_prs}), 200
     except NotImplementedError as nie:
         return jsonify({"error": str(nie)}), 501
     except Exception as e:
